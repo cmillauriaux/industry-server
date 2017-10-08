@@ -39,6 +39,7 @@ func setUpMux() *mux.Router {
 
 	// Player
 	r.HandleFunc("/player", api.NewPlayer).Methods(http.MethodPost)
+	r.HandleFunc("/player/{id}", api.GetPlayer).Methods(http.MethodGet)
 
 	return r
 }

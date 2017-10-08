@@ -8,6 +8,7 @@ import (
 
 	"git.icysoft.fr/cedric/industry-go-server/api/schema"
 
+	"github.com/gorilla/mux"
 	"github.com/satori/go.uuid"
 	"github.com/xeipuuv/gojsonschema"
 
@@ -51,6 +52,24 @@ func NewPlayer(w http.ResponseWriter, r *http.Request) {
 
 	// Register player
 	err = playerService.NewPlayer(&player)
+	if err != nil {
+		if err != nil {
+			fmt.Fprint(w, structToJSON(makeError(err)))
+			return
+		}
+	}
+
+	w.Write([]byte(structToJSON(Response{Data: player})))
+}
+
+func GetPlayer(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+
+	// get datas
+	playerId := mux.Vars(r)["id"]
+
+	// Register player
+	player, err := playerService.GetPlayer(playerId)
 	if err != nil {
 		if err != nil {
 			fmt.Fprint(w, structToJSON(makeError(err)))

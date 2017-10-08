@@ -27,6 +27,9 @@ func (c *PlayerService) NewPlayer(player *model.Player) error {
 
 func (c *PlayerService) GetPlayer(playerID string) (*model.Player, error) {
 	player, err := dbPlayer.Get(playerID)
+	if err != nil {
+		return nil, err
+	}
 	if player == nil {
 		return nil, errors.New("Cannot find this player")
 	}
