@@ -60,5 +60,9 @@ functions:
           cors: true
       - http:
           path: player/{id}
+          method: put
+          cors: true
+      - http:
+          path: player/{id}
           method: get
           cors: true
