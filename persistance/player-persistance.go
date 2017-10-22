@@ -25,7 +25,7 @@ func (c *PlayerPersistance) New(player *model.Player) error {
 
 func (c *PlayerPersistance) Update(player *model.Player) error {
 	table := dbPlayer.Table(PlayerTableName)
-	return table.Update(player.PlayerID, player).Run()
+	return table.Put(player).Run()
 }
 
 func (c *PlayerPersistance) Delete(playerID string) error {

@@ -25,6 +25,21 @@ func (c *PlayerService) NewPlayer(player *model.Player) error {
 	return err
 }
 
+func (c *PlayerService) UpdatePlayer(player *model.Player) error {
+	isExists, err := c.IsPlayerExists(player.PlayerID)
+
+	if err != nil {
+		return err
+	}
+
+	if !isExists {
+		return errors.New("Cannot find player")
+	}
+
+	err = dbPlayer.Update(player)
+	return err
+}
+
 func (c *PlayerService) GetPlayer(playerID string) (*model.Player, error) {
 	player, err := dbPlayer.Get(playerID)
 	if err != nil {

@@ -2,14 +2,16 @@ package main
 
 import (
 	"log"
+	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"git.icysoft.fr/cedric/industry-go-server/api"
 
-	"github.com/eawsy/aws-lambda-go-net/service/lambda/runtime/net"
+	aws "github.com/eawsy/aws-lambda-go-net/service/lambda/runtime/net"
 	"github.com/eawsy/aws-lambda-go-net/service/lambda/runtime/net/apigatewayproxy"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
 // Handler is the exported handler called by AWS Lambda.
@@ -20,32 +22,41 @@ func init() {
 }
 
 func NewHandler() apigatewayproxy.Handler {
-	ln := net.Listen()
+	ln := aws.Listen()
+
+	// In local development environment, open 8080 port
+	if os.Getenv("GIN_MODE") == "" {
+		ln, _ = net.Listen("tcp", "0.0.0.0:8080")
+	}
 
 	// Amazon API Gateway Binary support out of the box.
 	handle := apigatewayproxy.New(ln, nil).Handle
 
 	// Any Go framework complying with the Go http.Handler interface can be used.
 	// This includes, but is not limited to, Vanilla Go, Gin, Echo, Gorrila, Goa, etc.
-	go http.Serve(ln, setUpMux())
+	go http.Serve(ln, setUpGin())
 
 	log.Println(ln.Addr().String())
 
 	return handle
 }
 
-func setUpMux() *mux.Router {
-	r := mux.NewRouter()
+func setUpGin() *gin.Engine {
+	r := gin.Default()
 
 	// Player
-	r.HandleFunc("/player", api.NewPlayer).Methods(http.MethodPost)
-	r.HandleFunc("/player/{id}", api.GetPlayer).Methods(http.MethodGet)
+	player := r.Group("/player")
+	{
+		player.POST("/", api.NewPlayer)
+		player.PUT("/:id", api.UpdatePlayer)
+		player.GET("/:id", api.GetPlayer)
+	}
 
 	return r
 }
 
 func main() {
 	for {
-		time.Sleep(time.Second)
+		time.Sleep(time.Hour)
 	}
 }

@@ -32,3 +32,9 @@ should get the same payload back with status `200`
 ```bash
 make remove
 ```
+
+## Notes
+
+- Middlewares for Gin : https://github.com/gin-gonic/contrib
+- OAuth2 for Gin : https://github.com/zalando/gin-oauth2
+- Validator for Gin : https://godoc.org/gopkg.in/go-playground/validator.v8#hdr-Baked_In_Validators_and_Tags

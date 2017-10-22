@@ -40,3 +40,7 @@
 [[constraint]]
   branch = "master"
   name = "github.com/xeipuuv/gojsonschema"
+
+[[constraint]]
+  name = "github.com/gin-gonic/gin"
+  version = "1.2.0"
