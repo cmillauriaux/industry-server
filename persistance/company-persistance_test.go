@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/cmillauriaux/industry-go-server/model"
+	"github.com/cmillauriaux/indeustry-server/model"
 	uuid "github.com/satori/go.uuid"
 )
 

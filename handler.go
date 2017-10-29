@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/cmillauriaux/industry-go-server/api"
+	"github.com/cmillauriaux/indeustry-server/api"
 
 	aws "github.com/eawsy/aws-lambda-go-net/service/lambda/runtime/net"
 	"github.com/eawsy/aws-lambda-go-net/service/lambda/runtime/net/apigatewayproxy"

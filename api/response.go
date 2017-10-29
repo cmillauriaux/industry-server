@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/cmillauriaux/industry-go-server/model"
+	"github.com/cmillauriaux/indeustry-server/model"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/copier"
 )

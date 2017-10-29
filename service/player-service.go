@@ -5,8 +5,8 @@ import (
 
 	"github.com/satori/go.uuid"
 
-	"github.com/cmillauriaux/industry-go-server/model"
-	"github.com/cmillauriaux/industry-go-server/persistance"
+	"github.com/cmillauriaux/indeustry-server/model"
+	"github.com/cmillauriaux/indeustry-server/persistance"
 )
 
 var dbPlayer *persistance.PlayerPersistance

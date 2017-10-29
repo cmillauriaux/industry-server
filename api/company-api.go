@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
 
-	"github.com/cmillauriaux/industry-go-server/model"
-	"github.com/cmillauriaux/industry-go-server/model/output"
+	"github.com/cmillauriaux/indeustry-server/model"
+	"github.com/cmillauriaux/indeustry-server/model/output"
 )
 
 func init() {
