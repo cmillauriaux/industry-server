@@ -1,7 +1,7 @@
 package persistance
 
 import (
-	"git.icysoft.fr/cedric/industry-go-server/model"
+	"github.com/cmillauriaux/industry-go-server/model"
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/guregu/dynamo"

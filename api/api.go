@@ -1,7 +1,7 @@
 package api
 
 import (
-	"git.icysoft.fr/cedric/industry-go-server/service"
+	"github.com/cmillauriaux/industry-go-server/service"
 )
 
 var playerService *service.PlayerService
