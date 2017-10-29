@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 
 	"git.icysoft.fr/cedric/industry-go-server/model"
+	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/copier"
 )
 
 type Response struct {
@@ -18,6 +20,17 @@ func structToJSON(structure interface{}) string {
 		return ""
 	}
 	return string(b)
+}
+
+func convertStructToAnother(source interface{}, destination interface{}) interface{} {
+	copier.Copy(destination, source)
+	return destination
+}
+
+func makeResponse(c *gin.Context, source interface{}, destination interface{}) {
+	data := convertStructToAnother(source, destination)
+	response := structToJSON(Response{Data: data})
+	c.JSON(200, response)
 }
 
 func makeError(err error) *Response {

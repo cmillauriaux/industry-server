@@ -10,46 +10,43 @@ import (
 const CompanyTableName = "company"
 
 var db *dynamo.DB
+var tableCompany *dynamo.Table
 
 func init() {
 	db = dynamo.New(session.New())
+	tableCompanyNoPtr := dbPlayer.Table(PlayerTableName)
+	tableCompany = &tableCompanyNoPtr
 }
 
 type CompanyPersistance struct {
 }
 
 func (c *CompanyPersistance) New(company *model.Company) error {
-	table := db.Table(CompanyTableName)
-	return table.Put(company).Run()
+	return tableCompany.Put(company).Run()
 }
 
 func (c *CompanyPersistance) Update(company *model.Company) error {
-	table := db.Table(CompanyTableName)
-	return table.Update(company.CompanyID, company).Run()
+	return tableCompany.Update(company.CompanyID, company).Run()
 }
 
 func (c *CompanyPersistance) Delete(companyID string) error {
-	table := db.Table(CompanyTableName)
-	return table.Delete("CompanyID", companyID).Run()
+	return tableCompany.Delete("CompanyID", companyID).Run()
 }
 
 func (c *CompanyPersistance) Get(companyID string) (*model.Company, error) {
 	var result *model.Company
-	table := db.Table(CompanyTableName)
-	err := table.Get("CompanyID", companyID).One(result)
+	err := tableCompany.Get("CompanyID", companyID).One(result)
 	return result, err
 }
 
 func (c *CompanyPersistance) GetByPlayerID(playerID string) ([]*model.Company, error) {
 	var results []*model.Company
-	table := db.Table(CompanyTableName)
-	err := table.Get("PlayerID", playerID).All(results)
+	err := tableCompany.Get("PlayerID", playerID).All(results)
 	return results, err
 }
 
 func (c *CompanyPersistance) List() ([]*model.Company, error) {
 	var results []*model.Company
-	table := db.Table(CompanyTableName)
-	err := table.Scan().All(&results)
+	err := tableCompany.Scan().All(&results)
 	return results, err
 }

@@ -52,6 +52,14 @@ func setUpGin() *gin.Engine {
 		player.GET("/:id", api.GetPlayer)
 	}
 
+	// Company
+	company := r.Group("/company")
+	{
+		company.POST("/", api.NewCompany)
+		company.PUT("/:id", api.UpdateCompany)
+		company.GET("/:id", api.GetCompany)
+	}
+
 	return r
 }
 

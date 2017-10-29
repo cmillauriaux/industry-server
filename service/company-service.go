@@ -38,6 +38,21 @@ func (c *CompanyService) NewCompany(company *model.Company) error {
 	return err
 }
 
+func (c *CompanyService) UpdateCompany(company *model.Company) error {
+	isExists, err := c.IsCompanyExists(company.CompanyID)
+
+	if err != nil {
+		return err
+	}
+
+	if !isExists {
+		return errors.New("Cannot find company")
+	}
+
+	err = db.Update(company)
+	return err
+}
+
 func (c *CompanyService) UpdateProduction(playerID string, companyID string, productID string) error {
 	// Check if player exists
 	isPlayerExists, err := servicePlayer.IsPlayerExists(playerID)
@@ -99,4 +114,15 @@ func (c *CompanyService) IsPlayerCompany(playerID string, companyID string) (boo
 		return true, nil
 	}
 	return false, nil
+}
+
+func (c *CompanyService) IsCompanyExists(companyID string) (bool, error) {
+	company, err := db.Get(companyID)
+	if company == nil {
+		return false, errors.New("Cannot find this company")
+	}
+	if company != nil && company.CompanyID != uuid.Nil.String() {
+		return true, nil
+	}
+	return false, err
 }

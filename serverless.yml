@@ -6,6 +6,7 @@ provider:
   runtime: python2.7
   stage: ${env:ENV}
   region: ${env:AWS_REGION}
+  memorySize: 256
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -64,5 +65,17 @@ functions:
           cors: true
       - http:
           path: player/{id}
+          method: get
+          cors: true
+      - http:
+          path: company
+          method: post
+          cors: true
+      - http:
+          path: company/{id}
+          method: put
+          cors: true
+      - http:
+          path: company/{id}
           method: get
           cors: true

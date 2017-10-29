@@ -14,20 +14,20 @@ func init() {
 
 }
 
-func NewPlayer(c *gin.Context) {
+func NewCompany(c *gin.Context) {
 	// Validate datas
-	var player model.Player
-	err := c.BindJSON(&player)
+	var company model.Company
+	err := c.BindJSON(&company)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, structToJSON(makeError(err)))
 		return
 	}
 
 	// Make a new UID
-	player.PlayerID = uuid.NewV4().String()
+	company.CompanyID = uuid.NewV4().String()
 
-	// Register player
-	err = playerService.NewPlayer(&player)
+	// Register company
+	err = companyService.NewCompany(&company)
 	if err != nil {
 		if err != nil {
 			c.JSON(http.StatusBadRequest, structToJSON(makeError(err)))
@@ -35,20 +35,20 @@ func NewPlayer(c *gin.Context) {
 		}
 	}
 
-	makeResponse(c, &player, &output.PlayerOutput{})
+	makeResponse(c, &company, &output.CompanyOutput{})
 }
 
-func UpdatePlayer(c *gin.Context) {
+func UpdateCompany(c *gin.Context) {
 	// Validate datas
-	var player model.Player
-	err := c.BindJSON(&player)
+	var company model.Company
+	err := c.BindJSON(&company)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, structToJSON(makeError(err)))
 		return
 	}
 
-	// Update player
-	err = playerService.UpdatePlayer(&player)
+	// Update company
+	err = companyService.UpdateCompany(&company)
 	if err != nil {
 		if err != nil {
 			c.JSON(http.StatusBadRequest, structToJSON(makeError(err)))
@@ -56,15 +56,15 @@ func UpdatePlayer(c *gin.Context) {
 		}
 	}
 
-	makeResponse(c, &player, &output.PlayerOutput{})
+	makeResponse(c, &company, &output.CompanyOutput{})
 }
 
-func GetPlayer(c *gin.Context) {
+func GetCompany(c *gin.Context) {
 	// get datas
-	playerID := c.Param("id")
+	companyID := c.Param("id")
 
 	// Register player
-	player, err := playerService.GetPlayer(playerID)
+	company, err := companyService.GetCompany(companyID)
 	if err != nil {
 		if err != nil {
 			c.JSON(http.StatusBadRequest, structToJSON(makeError(err)))
@@ -72,5 +72,5 @@ func GetPlayer(c *gin.Context) {
 		}
 	}
 
-	makeResponse(c, player, &output.PlayerOutput{})
+	makeResponse(c, &company, &output.CompanyOutput{})
 }
