@@ -1,7 +1,7 @@
 package persistance
 
 import (
-	"github.com/cmillauriaux/indeustry-server/model"
+	"github.com/cmillauriaux/industry-server/model"
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/guregu/dynamo"

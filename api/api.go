@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/cmillauriaux/indeustry-server/service"
+	"github.com/cmillauriaux/industry-server/service"
 )
 
 var playerService *service.PlayerService

@@ -5,8 +5,8 @@ import (
 
 	"github.com/satori/go.uuid"
 
-	"github.com/cmillauriaux/indeustry-server/model"
-	"github.com/cmillauriaux/indeustry-server/persistance"
+	"github.com/cmillauriaux/industry-server/model"
+	"github.com/cmillauriaux/industry-server/persistance"
 )
 
 var db *persistance.CompanyPersistance
